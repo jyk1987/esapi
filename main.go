@@ -1,18 +1,15 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"github.com/jyk1987/es/log"
 )
 
 func main() {
 	log.Log.Debug("test")
-	log.Log.Debug(gin.Default)
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
+	app := fiber.New()
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World!")
 	})
-	r.Run()
+	app.Listen(":8080")
 }
